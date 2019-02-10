@@ -1,0 +1,138 @@
+<!-- <a title="Account" href="#"
+ (click)="openModal(userModal)">
+  <fa name="user"></fa>
+</a> -->
+
+<a title="Server" href="#" (click)="openModal()">
+  <fa name="server"></fa>
+</a>
+
+<!-- <a id="idModal" class="modal"  data-backdrop="static" data-keyboard="false" href="#"> -->
+
+<!-- <ng-template #userModal let-modal *ngIf="accountmodel" > -->
+<!-- <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Account</h4>
+    <button type="button"  id="usermodelclose" class="close" aria-label="Close" #userModalClose (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div> -->
+<h2 *ngIf="serverModal">Server Settings</h2>
+
+<div class="modal-body" *ngIf="serverModal">
+
+  <form name="form" (ngSubmit)="AccountForm" #AccountForm="ngForm" novalidate>
+    <button class="btn btn-danger" (click)="closeservermodal()">Close server Model</button>
+
+    <p>
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsedpreferences = !isCollapsedpreferences"
+        [attr.aria-expanded]="!isCollapsedpreferences" aria-controls="collapseExample">
+        <fa name="plus" *ngIf="isCollapsedpreferences"></fa>
+        <fa name="minus" *ngIf="!isCollapsedpreferences"></fa>
+        Preferences
+      </button>
+    </p>
+
+    <div id="collapseExample" [ngbCollapse]="isCollapsedpreferences">
+      <div class="card">
+        <div class="card-body">
+
+          <div class="form-group">
+            <label for="maplayer">Map Layer</label><br>
+            <div>
+              <select name="maplayer" [(ngModel)]="maplayer">
+                <option *ngFor="let mlayer of MapLayer"> {{mlayer.value}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="bingmapkey">Bing Maps Key</label>
+            <input type="number" class="form-control" name="bingmapkey" [(ngModel)]="server.bingKey" />
+          </div>
+
+          <div class="form-group">
+            <label for="custommap">Custom Map</label>
+            <input type="string" class="form-control" name="custommap" [(ngModel)]="server.mapUrl" />
+          </div>
+          <div class="form-group">
+            <label for="latitude">Latitude</label>
+            <input type="number" class="form-control" name="latitude" [(ngModel)]="server.latitude" />
+          </div>
+          <div class="form-group">
+            <label for="longitude">Longitude</label>
+            <input type="number" class="form-control" name="longitude" [(ngModel)]="server.longitude" />
+          </div>
+          <div class="form-group">
+            <label for="zoom">Zoom</label>
+            <input type="number" class="form-control" name="zoom" [(ngModel)]="server.zoom" />
+          </div>
+          <div class="form-group">
+            <label for="poilayer">POI Layer</label>
+            <input type="text" class="form-control" name="poilayer" [(ngModel)]="server.poiLayer" />
+          </div>
+  
+
+          <div class="form-group">
+            <label for="cordinateformat">Coordinate Format</label><br>
+            <div>
+              <select name="cordinateformat" [(ngModel)]="coordformat">
+                <option *ngFor="let coformat of cordinatesformat"> {{coformat.value}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="hourformat">12-Hour Format</label> &nbsp;&nbsp;
+            <input type="checkbox" name="hourformat" [(ngModel)]="server.twelveHourFormat">
+          </div>
+          <div class="form-group">
+            <label for="hourformat">Force Settings</label> &nbsp;&nbsp;
+            <input type="checkbox" name="hourformat" [(ngModel)]="server.forceSettings">
+          </div>
+        </div>
+      </div>
+    </div>
+    <p>
+      <button type="button" class="btn btn-outline-primary" (click)="isCollapsedPermissions = !isCollapsedPermissions"
+        [attr.aria-expanded]="!isCollapsedPermissions" aria-controls="collapseExample">
+        <fa name="plus" *ngIf="isCollapsedPermissions"></fa>
+        <fa name="minus" *ngIf="!isCollapsedPermissions"></fa>
+
+        Permissions
+      </button>
+    </p>
+    <div id="collapseExample" [ngbCollapse]="isCollapsedPermissions">
+      <div class="card">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="registration">Registration</label> &nbsp;&nbsp;
+            <input type="checkbox" name="disabled" [(ngModel)]="server.registration">
+          </div>
+      
+          <div class="form-group">
+            <label for="readonly">Readonly</label> &nbsp;&nbsp;
+            <input type="checkbox" name="readonly" [(ngModel)]="server.readonly">
+          </div>
+          <div class="form-group">
+            <label for="devicereadonly">Device Readonly</label> &nbsp;&nbsp;
+            <input type="checkbox" name="devicereadonly" [(ngModel)]="server.deviceReadonly">
+          </div>
+          <div class="form-group">
+            <label for="limitcommand">Limit Commands</label> &nbsp;&nbsp;
+            <input type="checkbox" name="limitcommand" [(ngModel)]="server.limitCommands">
+          </div>
+        </div>
+      </div>
+    </div>
+   
+   
+    <div class="form-group">
+      <button class="btn btn-success" type="submit" (click)="submitserverdata()">Submit
+      </button>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-danger" (click)="getmapstate()">Get Map State</button>
+    </div>
+  </form>
+  <hr>
+
+
+</div>
