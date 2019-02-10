@@ -28,13 +28,22 @@ export class ObjectDetailsComponent implements OnInit {
   constructor(public CommonService: CommonServiceService, private ajax: RestService) { }
 
   deviceDetails: ObjectDetails;
+<<<<<<< HEAD
 
+=======
+  // deviceDetails;
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
 
   ngOnInit() {
 
     this.CommonService.deviceDetails.subscribe((value) => {
+<<<<<<< HEAD
       this.deviceDetails = value[0];
       //console.log (value);
+=======
+      this.deviceDetails = value;
+      console.log ('subscribed device details value' , this.deviceDetails);
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     })
 
 

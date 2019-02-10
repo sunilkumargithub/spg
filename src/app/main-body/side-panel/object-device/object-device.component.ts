@@ -54,17 +54,40 @@ export class ObjectDeviceComponent implements OnInit {
   apiurldelete: string = "http://13.232.8.87:8082/api/devices/";
   apiurlGetDrivers: string = "http://13.232.8.87:8082/api/drivers";
   apiUrlDriverDevice: string = "http://13.232.8.87:8082/api/drivers?deviceId";
+<<<<<<< HEAD
   apiDriverAssign: string = "http://13.232.8.87:8082/api/permissions";
   apiurlGetNotify: string = "http://13.232.8.87:8082/api/notifications";
   apiurlNotifyDevice: string = "http://13.232.8.87:8082/api/notifications?deviceId";
   apiurlGetCompAttribute: string = "http://13.232.8.87:8082/api/attributes/computed";
   apiurlCompAttrDevice: string = "http://13.232.8.87:8082/api/attributes/computed?deviceId";
 
+=======
+
+  apiDriverAssign: string = "http://13.232.8.87:8082/api/permissions";
+  
+  apiurlGetNotify: string = "http://13.232.8.87:8082/api/notifications";
+  apiurlNotifyDevice: string = "http://13.232.8.87:8082/api/notifications?deviceId";
+
+  apiurlGetCompAttribute: string = "http://13.232.8.87:8082/api/attributes/computed";
+  apiurlCompAttrDevice: string = "http://13.232.8.87:8082/api/attributes/computed?deviceId";
+
+  apiurlGetMaintainance: string = "http://13.232.8.87:8082/api/maintenances";
+  apiurlGetMaintainancedevice: string = "http://13.232.8.87:8082/api/maintenances?deviceId";
+  apiurlMaintainanceassign: string = "http://13.232.8.87:8082/api/maintenances";
+
+
+
+
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
   device: object;
 
   deviceId: number;
   deviceName: string;
   drivers: any = [];
+<<<<<<< HEAD
+=======
+  maintenance:any = [];
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
   driversSelected: any = [];
   response: boolean = false;
   notifys: any = [];
@@ -170,6 +193,18 @@ export class ObjectDeviceComponent implements OnInit {
 
     this.ajax.get(this.apiurlGetCompAttribute, httpOptions).then((data) => {
       this.compAttributes = data;
+<<<<<<< HEAD
+=======
+      console.log('get compAttributes'  , this.compAttributes)
+
+    }).catch(error => {
+      console.error(error);
+    });
+
+    this.ajax.get(this.apiurlGetMaintainance, httpOptions).then((data) => {
+      this.maintenance = data;
+      console.log('get maintenance'  , this.maintenance)
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     }).catch(error => {
       console.error(error);
     });
@@ -188,18 +223,39 @@ export class ObjectDeviceComponent implements OnInit {
 
 
   onClick(id) {
+<<<<<<< HEAD
     // var target = event.target || event.srcElement || event.currentTarget;
     this.deviceId = id;
     this.getDeviceDetails(this.apiurl2, this.deviceId);
+=======
+
+    console.log('id' , id, 'apiurl2' , this.apiurl2);
+    // var target = event.target || event.srcElement || event.currentTarget;
+    this.deviceId = id;
+    this.getDeviceDetails(this.apiurl2, this.deviceId);
+
+
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
   }
 
   getDeviceDetails(apiurl, id) {
     this.ajax.get(apiurl + id, httpOptions).then((value) => {
+<<<<<<< HEAD
       value.map((dat) => {
         this.CommonService.deviceDetailsemit(dat)
       })
 
       //console.log(this.device);
+=======
+      console.log('device details from api ' , value);
+      value.map((dat) => {
+      console.log('device details dat ' , dat);
+
+        this.CommonService.deviceDetailsemit(dat)
+      })
+
+      //console.log(this.device); 
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     }).catch(() => {
       console.log('error happened');
     });
@@ -320,12 +376,20 @@ export class ObjectDeviceComponent implements OnInit {
     let ids = [];
     this.deviceId = id;
     this.ajax.get(this.apiurlCompAttrDevice + "=" + id, httpOptions).then((not) => {
+<<<<<<< HEAD
+=======
+      console.log('comp device' , not);
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
       not.map((val) => {
         let i = val['id'];
         ids.push(i);
 
       });
       this.compAttributes.map((value, index) => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
         if (ids.indexOf(value.id) != -1) {
           this.compAttributes[index].selected = true;
         } else {
@@ -345,6 +409,11 @@ export class ObjectDeviceComponent implements OnInit {
       deviceId: this.deviceId,
       attributeId: i
     };
+<<<<<<< HEAD
+=======
+
+    console.log('data' , data);
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     this.response = true;
     if (event.target.checked) {
       this.ajax.addDevice(this.apiDriverAssign, data, httpOptions).then((data) => {
@@ -364,6 +433,65 @@ export class ObjectDeviceComponent implements OnInit {
 
   }
 
+<<<<<<< HEAD
+=======
+  assignmaintenance(id: number, modal: any) {
+    console.log('maintenance device ' , id);
+    console.log('maintenance device ' , modal);
+
+    let ids = [];
+    this.deviceId = id;
+    this.ajax.get(this.apiurlGetMaintainancedevice + "=" + id, httpOptions).then((not) => {
+      console.log('maintenance device ' , not);
+      not.map((val) => {
+        let i = val['id'];
+        ids.push(i);
+        console.log('all ids ' , ids);
+
+      });
+      this.maintenance.map((value, index) => {
+        if (ids.indexOf(value.id) != -1) {
+          this.maintenance[index].selected = true;
+        } else {
+          this.maintenance[index].selected = false;
+        }
+      });
+      this.open(modal);
+    });
+
+  }
+
+
+  
+  onChangemaintenance(event, i) {
+    let data = {
+      deviceId: this.deviceId,
+      // attributeId: i
+      maintenanceid:i
+    };
+
+    console.log('data' , data);
+    this.response = true;
+    if (event.target.checked) {
+      this.ajax.addDevice(this.apiDriverAssign, data, httpOptions).then((data) => {
+        console.log('data1' , data);
+        this.response = false;
+      }).catch((error) => {
+        this.response = false;
+        console.log('error happened1' ,error);
+      });
+    } else {
+      this.ajax.deleteDevicewithbody(this.apiDriverAssign, data).then((data) => {
+        this.response = false;
+      }).catch((error) => {
+        this.response = false;
+        console.log('data2' , data);
+        console.log('error happened2' ,error);
+      });
+    }
+
+  }
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
 
 
 }

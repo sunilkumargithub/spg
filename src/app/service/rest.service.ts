@@ -34,6 +34,10 @@ export class RestService {
 
 
   public get(url: string, data?: any, headers?: any): Promise<any> {
+<<<<<<< HEAD
+=======
+    console.log('ajax url' , url , 'data' , data); 
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     let promise = new Promise((resolve, reject) => {
       this.http.get(url, data).subscribe((data: any) => {
         resolve(data);
@@ -136,6 +140,10 @@ export class RestService {
     return promise;
   }
   commonget(url: string,  headers?: any) {
+<<<<<<< HEAD
+=======
+    console.log('common get url ' , url);
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     let promise = new Promise((resolve, reject) => {
       this.http.get(url, this.httpOptions).subscribe((res: object) => {
         resolve(res);
@@ -159,7 +167,47 @@ export class RestService {
     return promise;
   }
 
+<<<<<<< HEAD
 
 
+=======
+  commongetwithbody(url: string, body?: any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + 'YWRtaW46YWRtaW4='
+      }), body: body
+    };
+
+    let promise = new Promise((resolve, reject) => {
+      this.http.get(url, httpOptions).subscribe((device: object) => {
+        resolve(device);
+      }, (error) => {
+        reject(error);
+      })
+    });
+    return promise;
+  }
+
+
+  commongetwithparam(url: string,  param?:any) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        'Authorization': 'Basic ' + 'YWRtaW46YWRtaW4='
+      }),
+    };
+
+    let promise = new Promise((resolve, reject) => {
+      this.http.get(url+param, this.httpOptions).subscribe((res: object) => {
+        resolve(res);
+      }, (error) => {
+        reject(error);
+      })
+    });
+    return promise;
+  }
+
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
 }
 

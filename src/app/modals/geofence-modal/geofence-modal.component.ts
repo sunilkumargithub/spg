@@ -101,7 +101,11 @@ export class GeofenceModalComponent implements OnInit {
   getgeofences() {
     this.ajax.get(this.apiurlGetgeofences, httpOptions).then((data) => {
       this.geofences = data;
+<<<<<<< HEAD
       console.log('getgeofences', data)
+=======
+      // console.log('getgeofences', data)
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
       // this.attributes = {};
       // this.geofenceIndex = '';
     }).catch(error => {
@@ -183,6 +187,7 @@ export class GeofenceModalComponent implements OnInit {
       let ccords = originalcoords;
       ccords = ccords.substring(7);
       const scoord = ccords.slice(1, -1);
+<<<<<<< HEAD
       console.log('scoord' , scoord);
       let cplit = scoord.split(',');
       console.log('cplit' , cplit);
@@ -202,6 +207,13 @@ export class GeofenceModalComponent implements OnInit {
       // this.drawcircle(cradius , clatlong);
       this.drawtestcircle(cradius , clatlong);
 
+=======
+      let cplit = scoord.split(',');
+      let clatlong = cplit[0].split(' ')
+      const cradius = cplit[1];
+      this.initializemap()
+      this.drawCircleInMeter(this.areaMap, cradius, clatlong);
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
 
     }
 
@@ -237,6 +249,7 @@ export class GeofenceModalComponent implements OnInit {
     });
   }
 
+<<<<<<< HEAD
 
   drawtestcircle(radius: Number, center) {
     console.log('radius' , radius);
@@ -386,6 +399,42 @@ console.log('center' , center);
     this.areaMap.addLayer(vectorLayer);
 };
 
+=======
+  drawCircleInMeter(map, radius, centerlatlong) {
+    console.log('map', map)
+    console.log('radius', radius)
+    console.log('centerlatlong', centerlatlong)
+
+
+    var view = map.getView();
+    var projection = view.getProjection();
+    var resolutionAtEquator = view.getResolution();
+    console.log("resolutionAtEquator", resolutionAtEquator)
+    var center = map.getView().getCenter();
+    console.log('center', center)
+    const comingcenter = ol.proj.transform([centerlatlong[1], centerlatlong[0]], 'EPSG:4326', 'EPSG:3857')
+    console.log('comingcenter', comingcenter);
+
+    // var pointResolution = projection.getPointResolution(resolutionAtEquator, center);
+    // var resolutionFactor = resolutionAtEquator/pointResolution;
+    // var radiuss = (4 / ol.proj.METERS_PER_UNIT.m) * resolutionFactor;
+
+
+    var circle = new ol.geom.Circle(comingcenter, 400000);
+    var circleFeature = new ol.Feature(circle);
+
+    // Source and vector layer
+    var vectorSource = new ol.source.Vector({
+      projection: 'EPSG:4326'
+    });
+    vectorSource.addFeature(circleFeature);
+    var vectorLayer = new ol.layer.Vector({
+      source: vectorSource
+    });
+
+    map.addLayer(vectorLayer);
+  }
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
   changemodalvalue() {
     var div = document.createElement("div");
     div.style.width = "100%";
@@ -401,7 +450,11 @@ console.log('center' , center);
     this.openareamap();
   }
 
+<<<<<<< HEAD
   openareamap(){
+=======
+  openareamap() {
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
     this.raster = new TileLayer({
       source: new OSM()
     });
@@ -454,6 +507,7 @@ console.log('center' , center);
           var geometry = evt.feature.getGeometry();
           var radius = geometry.getRadius();
           var center = geometry.getCenter();
+<<<<<<< HEAD
           console.log('ceter at drawn ', center[0] , center[1]);
           const changedcenter = ol.proj.transform([center[1], center[0]],   'EPSG:3857' , 'EPSG:4326')
 
@@ -462,6 +516,10 @@ console.log('center' , center);
 
           this.Geometrydrawn = { type: 'circle', radius: geometry.getRadius(), center: changedcenter };
           console.log('this.cdm ', this.Geometrydrawn);
+=======
+          this.Geometrydrawn = { type: 'circle', radius: geometry.getRadius(), center: geometry.getCenter() };
+          console.log('this.cdm ', this.Geometrydrawn)
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
         });
 
         //    if (radius > 1000) {
@@ -754,4 +812,8 @@ console.log('center' , center);
 // var linearRing = new ol.Geometry.LinearRing(sitePoints);
 // var geometry = new ol.Geometry.Polygon([linearRing]);
 // var polygonFeature = new ol.Feature.Vector(geometry, null, siteStyle);
+<<<<<<< HEAD
 // this.vectors.addFeatures([polygonFeature]);
+=======
+// this.vectors.addFeatures([polygonFeature]);
+>>>>>>> e5a09dbad56ae5598aa7c810fa0a84a75f400721
